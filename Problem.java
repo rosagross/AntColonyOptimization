@@ -19,6 +19,10 @@ public class Problem {
 	 * Name of the Problem
 	 */
 	private String filename;
+	
+	/**
+	 * Distances between all cities in 2d array
+	 */
 	private int[][] townsDistances;
 	
 
@@ -34,11 +38,18 @@ public class Problem {
 	}
 	
 	
-	public int[][] getTowns() {
+	/**
+	 * Getter for townsDistances
+	 * 
+	 */
+	public int[][] getTownsDistances() {
 		return this.townsDistances;	
 	}
 	
-	
+	/**
+	 * The Constructor of a problem needs the filename
+	 * @param filename
+	 */
 	public int[][] townsDistances(){
 		
 		int[][] townsDistances = new int[countLines()][countTowns()];
@@ -69,12 +80,12 @@ public class Problem {
 		for (int i = 0; i < countLines(); i++) {
 		
 			System.out.println("");
-			System.out.print("|");
 
 			for (int j = 0; j < countTowns(); j++) {
-				System.out.print(townsDistances[i][j]);
-				System.out.print("|");
+				System.out.printf("|%3d",townsDistances[i][j]);
+				
 
+				
 			}
 		}
 		
@@ -120,4 +131,3 @@ public class Problem {
 
 
 }
-
