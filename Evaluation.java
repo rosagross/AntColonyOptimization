@@ -15,6 +15,10 @@ public class Evaluation {
 		int greedyParameter;
 		
 		
+		Problem p = new Problem("01manhattan.tsp");
+		
+		
+		
 		
 	}
 	
