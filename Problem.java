@@ -113,20 +113,5 @@ public class Problem {
 	}
 	
 	
-	/**
-	 * Print matrix
-	 */
-	public static void printMatrix(int[][] matrix) {
-		
-		for (int i = 0; i < matrix.length; i++) {
-			
-			System.out.println("");
-
-			for (int j = 0; j < matrix.length; j++) {
-				System.out.printf("|%3d",matrix[i][j]);
-				
-			}
-		}
-	}
 
 }
