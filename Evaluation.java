@@ -16,6 +16,7 @@ public class Evaluation {
 		
 		
 		Problem p = new Problem("01manhattan.tsp");
+		p.printMatrix(p.getTownsDistances());
 		
 		
 		
