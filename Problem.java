@@ -1,9 +1,7 @@
 package tsp;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.regex.Pattern;
 
 
@@ -21,9 +19,16 @@ public class Problem {
 	private String filename;
 	
 	/**
+	 * amount of towns
+	 */
+	private int numberTowns;
+
+	
+	/**
 	 * Distances between all cities in 2d array
 	 */
 	private int[][] townsDistances;
+	
 	
 
 	
@@ -33,8 +38,8 @@ public class Problem {
 	 */
 	public Problem(String filename) {
 		this.filename = filename;
+		this.numberTowns = countTowns();		
 		this.townsDistances = townsDistances();
-		
 	}
 	
 	
@@ -47,22 +52,31 @@ public class Problem {
 	}
 	
 	/**
-	 * The Constructor of a problem needs the filename
-	 * @param filename
+	 * Getter for numberTowns
+	 * 
+	 */
+	public int getNumberTowns() {
+		return this.numberTowns;	
+	}
+	
+	
+	/**
+	 * Generate distanceMatrix from file
+	 * @return distanceMatrix
 	 */
 	public int[][] townsDistances(){
 		
-		int[][] townsDistances = new int[countLines()][countTowns()];
+		int[][] townsDistances = new int[this.numberTowns][this.numberTowns];
 		try (BufferedReader br = new BufferedReader(new FileReader(this.filename))){ 
 
-			for (int i = 0; i < countLines(); i++) {
+			for (int i = 0; i < this.numberTowns; i++) {
 
 				//each line is converted to int array with distances
 				String townsLine = br.readLine();
 				String[] town = townsLine.split( Pattern.quote( " " ) );
 				
 				
-				for (int j = 0; j < countTowns(); j++) {
+				for (int j = 0; j < this.numberTowns; j++) {
 				
 					townsDistances[i][j] = Integer.parseInt(town[j]);			
 				}
@@ -72,28 +86,17 @@ public class Problem {
 			System.out.println("Problem with br");
 		}
 		
-		System.out.print(countLines());
-		System.out.print(countTowns());
-
-
-		
-		for (int i = 0; i < countLines(); i++) {
-		
-			System.out.println("");
-
-			for (int j = 0; j < countTowns(); j++) {
-				System.out.printf("|%3d",townsDistances[i][j]);
-				
-
-				
-			}
-		}
+	
 		
 		return townsDistances;
 	}
 	
 	
-	public int countLines()  {
+	/**
+	 * Count towns of TSP
+	 * @return amount towns
+	 */
+	public int countTowns()  {
 
 		int line = 0;
 		try (BufferedReader br = new BufferedReader(new FileReader(this.filename)))  {
@@ -108,26 +111,22 @@ public class Problem {
 		}
 		return line;
 	}
+	
+	
+	/**
+	 * Print matrix
+	 */
+	public static void printMatrix(int[][] matrix) {
 		
-	public int countTowns()  {
-		
-		String[] towns = null;
-		try(BufferedReader br = new BufferedReader(new FileReader(this.filename))) {
-		
-			String townsLine = br.readLine();
-			towns = townsLine.split( Pattern.quote( " " ) );
-		} catch (Exception e) {
-			System.out.println("Problem with BufferedReader");
+		for (int i = 0; i < matrix.length; i++) {
+			
+			System.out.println("");
+
+			for (int j = 0; j < matrix.length; j++) {
+				System.out.printf("|%3d",matrix[i][j]);
+				
+			}
 		}
-		return towns.length;
 	}
-
-
-
-	
-	
-		
-		
-
 
 }
