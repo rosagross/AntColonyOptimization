@@ -15,12 +15,15 @@ public class Evaluation {
 		
 		// initialized with some default values
 		int ants = 20;
+		double pheromoneValue = 1.0;
 		double evaporationParameter = 0.9;
-		double intensificationParameter = 0.1;
+		double intensificationParameter = 0.2;
 		double pheromoneWeight = 1;
 		double heuristicWeight = 1;
 		double greedyParameter = 0.5;
-		String filename = "01manhattan.tsp";
+		String filename = "02euclidean.tsp";
+		//String filename = "test.txt";
+
 		
 		Problem p = new Problem(filename);
 		System.out.print("data");
@@ -29,30 +32,33 @@ public class Evaluation {
 		System.out.println(" ");
 		
 		// construct the initializer that generates a random inti for every trial 
-		Initialization init = new Initialization(p, ants);
+		Initialization init = new Initialization(p, ants, pheromoneValue);
 		
-		// construct an solution generator, intensificator and evaporator (save the parameter as attributes)
+		// construct an solution generator, intensifier and evaporator (save the parameter as attributes)
 		Intensification intense = new Intensification(intensificationParameter, p);
 		Evaporation evap = new Evaporation(evaporationParameter);
-		SolutionGeneration solultionGener = new SolutionGeneration(pheromoneWeight, heuristicWeight, greedyParameter);
+		SolutionGeneration solultionGener = new SolutionGeneration(p.getTownsDistances(), ants, pheromoneWeight, heuristicWeight, greedyParameter);
 		
 		// construct the algorithm 
-		AntColonyOptimization aco = new AntColonyOptimization(intense, evap, solultionGener);
+		AntColonyOptimization aco = new AntColonyOptimization(init, intense, evap, solultionGener);
 		
 		//save results
 		String[][] results = new String[100][6];
 		long time_spent = 0;
 		long startTime;
-		// execute the algoriths 100 times and compare to the documentation 
-		int trials = 100;
+		// execute the algorithms 100 times and compare to the documentation 
+		int trials = 2;
 
 		for (int i = 0; i < trials; i++) {
+			
+			System.out.println(i);
 		
 			// measure time before each search process
 			startTime = System.currentTimeMillis();
 			
-			// start the searching (initialize new for each trial with the Initioalizer)
-			int[] preferedSolution = aco.bestSolution(p, init.getinitRoutes());
+			// start the searching (initialize new for each trial with the Initializer)
+			int[] preferedSolution = aco.bestSolution();
+			
 			
 			// stop time counting after the search and calculating the duration for this single trial
 			time_spent = System.currentTimeMillis() - startTime;
@@ -123,12 +129,39 @@ public class Evaluation {
 	}
 	
 	/**
+	 * Print matrix
+	 */
+	public static void printMatrix(double[][] matrix) {
+		
+		for (int i = 0; i < matrix.length; i++) {
+			
+			System.out.println("");
+
+			for (int j = 0; j < matrix[0].length; j++) {
+				System.out.printf("|%3s",matrix[i][j]);
+				
+			}
+		}
+	}
+	
+	/**
 	 * Method that prints out the content of an array
 	 * @param array
 	 */
 	public static void printArray(int[] array) {
 		for (int j = 0; j < array.length; j++) {
 			System.out.printf("|%3d",array[j]);
+			
+		}
+	}
+	
+	/**
+	 * Method that prints out the content of an array
+	 * @param array
+	 */
+	public static void printArray(double[] array) {
+		for (int j = 0; j < array.length; j++) {
+			System.out.printf("|%3s",array[j]);
 			
 		}
 	}
