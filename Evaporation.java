@@ -7,24 +7,23 @@ public class Evaporation {
 	//evaporation rate
 	private double evaporationParameter;
 	//pheromone matrix that is evaporated
-	private double[][] evaporated;
+	//private double[][] evaporated;
 	
 	/*
 	 * In the constructor, we call the evaporation method and set the evaporation parameter
 	 * @param old_pheromones
 	 * @param evaporationParameter
 	 */
-	public Evaporation(double[][] old_pheromones, double evaporationParameter) {
-		this.evaporated = evaporate(old_pheromones, evaporationParameter);
+	public Evaporation(double evaporationParameter) {
 		this.evaporationParameter = evaporationParameter;
 	}
 	
-	/*
-	 * Getter for evaporated pheromone Matrix
-	 */
-	public double[][] getEvaporated() {
-		return this.evaporated;
-	}
+//	/*
+//	 * Getter for evaporated pheromone Matrix
+//	 */
+//	public double[][] getEvaporated() {
+//		return this.evaporated;
+//	}
 	
 	
 	/*this is how to evaporate a pheromone matrix :)
