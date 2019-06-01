@@ -15,9 +15,10 @@ public class AntColonyOptimization {
 	public double iterations;
 	public double resultValue;
 	
+	private Initialization init;
 	private Intensification intense;
 	private Evaporation evap;
-	private SolutionGeneration soluionGeneration;
+	private SolutionGeneration solutionGeneration;
 	
 	/**
 	 * Constructor constructs an ACO instance
@@ -26,34 +27,32 @@ public class AntColonyOptimization {
 	 * @param evap
 	 * @param solutionGeneration
 	 */
-	public AntColonyOptimization(Intensification intense, Evaporation evap, SolutionGeneration solutionGeneration) {
+	public AntColonyOptimization(Initialization init, Intensification intense, Evaporation evap, SolutionGeneration solutionGeneration) {
+		
+		this.init = init;
 		this.evap = evap;
 		this.intense = intense;
 		this.iterations = 0;
-		this.soluionGeneration = solutionGeneration;
+		this.solutionGeneration = solutionGeneration;
 	}
 		
 	/**
 	 * The algortihm that returns the best solution under the given conditions.
 	 * @return the array that contains the best/shortest way
 	 */
-	public int[] bestSolution(Problem p, int[][] initialized){ // in generated the nr of ants is included.
-		int[][] solutions; // in this array the solutions can be stored, we get the solutions from the solution generator
+	public int[] bestSolution(Problem p, int ants, double pheromoneValue, double evaporationParameter, double intensificationParameter, double pheromoneWeight, double heuristicWeight, double greedyParameter){ 
 		
 	
+		int[][] distances = p.getTownsDistances();
+		double[][] newPheromones = init.getPheromoneMatrix();
+		int[][] solutions = init.getinitRoutes();
+		
+		
 		do {
+			newPheromones = evap.evaporate(newPheromones);
+			newPheromones = intense.intensify(newPheromones, solutions);
+			solutions = solutionGeneration.solutionsMatrix(distances, newPheromones);
 
-			/*
-			 *  Befehl um solution zu generieren, die pheromoneMatrix kann mittels getter-method von Intensification 
-			 *  geholt werden. Sie wird durch den Konstruktor von Intensification mit 1sen initialisiert.
-			 */
-			// solutions = SolutionGeneration.generate(initialized) <-- weiss nicht genau wie die methode heisst;)
-			
-			//evaporate PheromoneMatrix
-			evap.evaporate(pheromoneMatrix)
-			
-			// intensify the pheremone values that correspond to a good solution
-			intense.intensify(evap.getEvaporated(), solutions);
 			
 			this.iterations ++;
 			
