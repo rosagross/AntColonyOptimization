@@ -12,8 +12,9 @@ public class AntColonyOptimization {
 	 * In this variables we save the information about how many iterations we needed 
 	 * so we can calculate the time per iteration later (duration is measured in Evaluation class)
 	 */
-	public double iterations;
-	public double resultValue;
+	public double iterations = 0;
+	public double resultValue = 0;
+	
 	
 	private Initialization init;
 	private Intensification intense;
@@ -40,27 +41,48 @@ public class AntColonyOptimization {
 	 * The algortihm that returns the best solution under the given conditions.
 	 * @return the array that contains the best/shortest way
 	 */
-	public int[] bestSolution(Problem p, int ants, double pheromoneValue, double evaporationParameter, double intensificationParameter, double pheromoneWeight, double heuristicWeight, double greedyParameter){ 
+	public int[] bestSolution(){ 
 		
 	
-		int[][] distances = p.getTownsDistances();
 		double[][] newPheromones = init.getPheromoneMatrix();
 		int[][] solutions = init.getinitRoutes();
+		
+		//Evaluation.printMatrix(solutions);
+		
 		
 		
 		do {
 			newPheromones = evap.evaporate(newPheromones);
+//			System.out.println();
+//			Evaluation.printMatrix(newPheromones);
+//			System.out.println();
+
 			newPheromones = intense.intensify(newPheromones, solutions);
-			solutions = solutionGeneration.solutionsMatrix(distances, newPheromones);
+			
+//			System.out.println();
+//			Evaluation.printMatrix(newPheromones);
+//			System.out.println();
+
+			solutions = solutionGeneration.solutionsMatrix(newPheromones);
+//			
+//			System.out.println();
+//			Evaluation.printMatrix(solutions);
+//			System.out.println();
+
+
+
 
 			
 			this.iterations ++;
-			
 		} while (terminate());
 		
+		this.iterations = 0;
+		
+		
 		// the objective function with that we calculate the distance of the solution
-		this.resultValue = calcValue();
-		int[] bestSolution = Intensification.findBestSolution(solutions);
+		
+		this.resultValue = intense.evalSolution(intense.findBestSolution(solutions));
+		int[] bestSolution = intense.findBestSolution(solutions);
 		
 		return bestSolution;
 	}
@@ -77,8 +99,12 @@ public class AntColonyOptimization {
 	 * @return boolean that indicates if the termination condition is reached
 	 */
 	private boolean terminate() {
-		// TODO Auto-generated method stub
-		return false;
+		
+		if (iterations == 200) {
+			return false;
+		}
+		return true;
+		
 	}
 	
 	/**
