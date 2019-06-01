@@ -20,18 +20,19 @@ public class SolutionGeneration {
 	
 	private int[][] distanceMatrix;
 	
+	private int[][] solutions;
+	
 
 	
 	
-	public SolutionGeneration(int[][] distanceMatrix, int ants, double pheromoneWeight, double heuristicWeight, double greedyParameter, double[][] pheromoneMatrix) {
+	public SolutionGeneration(int[][] distanceMatrix, int ants, double pheromoneWeight, double heuristicWeight, double greedyParameter, double[][] pheromoneMatrix, int[][] solutions) {
 		
 		this.ants = ants;
 		this.pheromoneMatrix = pheromoneMatrix;
 		this.distanceMatrix = distanceMatrix;
 		this.heuristicWeights = heuristicWeight;
 		this.pheromoneWeight = pheromoneWeight;
-		this.solutionsMatrix = solutionsMatrix();
-		
+		this.solutions = solutions;
 		this.greedyParameter = greedyParameter;
 		
 		
@@ -51,9 +52,9 @@ public class SolutionGeneration {
 	 * Calculate soultion path for each ant according to the amount of pheromone  and the distances
 	 * @return solutionsMatrix
 	 */
-	private int[][] solutionsMatrix() {
+	public int[][] solutionsMatrix(int[][] distances, double[][] pheromoneMatrix) {
 		
-		int[][] solutionsMatrix = new int[ants][distanceMatrix.length - 1];
+		int[][] solutionsMatrix = new int[solutions.length][distances.length - 1];
 		int[] townsUnvisited;
 		double[] probabilities;
 		int counter = 0;
@@ -61,7 +62,7 @@ public class SolutionGeneration {
 		int end;
 
 		
-		int[] solution = new int[distanceMatrix.length - 1];
+		int[] solution = new int[distances.length - 1];
 	    Random random = new Random();
 
 		
@@ -71,13 +72,13 @@ public class SolutionGeneration {
 			
 		    int progress = 0;
 			int lastTownIndex = - 1;
-			probabilities = new double[distanceMatrix.length - 1];
+			probabilities = new double[distances.length - 1];
 
 
 			
 			//prepare townsUnvisited
-			townsUnvisited = new int[distanceMatrix.length - 1];
-			for (int t = 0; t < distanceMatrix.length - 1; t++) {
+			townsUnvisited = new int[distances.length - 1];
+			for (int t = 0; t < distances.length - 1; t++) {
 				townsUnvisited[t] = t + 1;
 			}
 			
@@ -89,7 +90,7 @@ public class SolutionGeneration {
 					
 
 					//collect probabilities for all left towns in array
-					probabilities[j] = calculateProb(townsUnvisited.length, lastTownIndex +1 , townsUnvisited[j]);
+					probabilities[j] = calculateProb(townsUnvisited.length, lastTownIndex +1 , townsUnvisited[j], distances,  pheromoneMatrix);
 					
 					if (j == townsUnvisited.length -1) {
 						end = choice.length;
@@ -154,9 +155,9 @@ public class SolutionGeneration {
 	 * @param j
 	 * @return probability
 	 */
-	private double calculateProb(double solutionLength, int i, int j) {
+	private double calculateProb(double solutionLength, int i, int j, int[][] distances,  double[][] pheromoneMatrix) {
 		
-		double prob = (1.0 /solutionLength) * (Math.pow(pheromoneMatrix[i][j],pheromoneWeight)/Math.pow(distanceMatrix[i][j],heuristicWeights));
+		double prob = (1.0 /solutionLength) * (Math.pow(pheromoneMatrix[i][j],pheromoneWeight)/Math.pow(distances[i][j],heuristicWeights));
 		return prob;
 	}
 	
@@ -169,4 +170,3 @@ public class SolutionGeneration {
 		return array;
 	}
 }
-
