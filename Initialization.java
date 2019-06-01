@@ -33,6 +33,9 @@ public class Initialization {
 	private double[][]pheromoneMatrix;
 	
 	
+	private Problem p;
+	
+	
 	/**
 	 * constructor contains the amount of ants and creates the route for each ant
 	 * @param p
@@ -41,11 +44,17 @@ public class Initialization {
 	public Initialization(Problem p, int ants, double pheromoneValue) {
 
 		this.ants = ants;
-		this.initRoutes = createRoutes(p);
+		//this.initRoutes = createRoutes(p);
+		
+		
 		this.pheromoneValue = pheromoneValue;
 		this.pheromoneMatrix = initPheromoneMatrix(p);
+		SolutionGeneration solultionGener = new SolutionGeneration(p.getTownsDistances(), ants, 0, 1, 1);
+		this.initRoutes = solultionGener.solutionsMatrix(pheromoneMatrix);
+		this.p = p;
 			
 	}
+
 	
 	
 	/**
