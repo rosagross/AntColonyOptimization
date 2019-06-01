@@ -49,12 +49,11 @@ public class AntColonyOptimization {
 			 */
 			// solutions = SolutionGeneration.generate(initialized) <-- weiss nicht genau wie die methode heisst;)
 			
-			// Evaporation Befehl HIER, angewendet auf alle pheromone values
-			// die aktualisierte Pheromone Matrix wird dann als attribut im Evaportation Objekt gespeichert
-			// evap.evaporate(pheromoneMatrix);  <-- evtl. so??
+			//evaporate PheromoneMatrix
+			evap.evaporate(pheromoneMatrix)
 			
 			// intensify the pheremone values that correspond to a good solution
-			intense.intensify(evap.getPheromoneMatrix(), solutions);
+			intense.intensify(evap.getEvaporated(), solutions);
 			
 			this.iterations ++;
 			
