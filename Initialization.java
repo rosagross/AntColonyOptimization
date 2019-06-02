@@ -4,8 +4,7 @@ import java.util.Random;
 
 /**
  * The class initialization creates a random route for every ant.
- *  
- * @author 
+ * @author Rosa
  */
 
 public class Initialization {
@@ -32,7 +31,9 @@ public class Initialization {
 	 */
 	private double[][]pheromoneMatrix;
 	
-	
+	/**
+	 * Problem object contains data from files
+	 */
 	private Problem p;
 	
 	
@@ -44,14 +45,14 @@ public class Initialization {
 	public Initialization(Problem p, int ants, double pheromoneValue) {
 
 		this.ants = ants;
-		//this.initRoutes = createRoutes(p);
+		this.initRoutes = createRoutes(p);
 		
 		
 		this.pheromoneValue = pheromoneValue;
 		this.pheromoneMatrix = initPheromoneMatrix(p);
-		SolutionGeneration solultionGener = new SolutionGeneration(p.getTownsDistances(), ants, 0, 1, 1);
-		this.initRoutes = solultionGener.solutionsMatrix(pheromoneMatrix);
-		this.p = p;
+		//SolutionGeneration solultionGener = new SolutionGeneration(p.getTownsDistances(), ants, 0, 1, 1);
+		//this.initRoutes = solultionGener.solutionsMatrix(pheromoneMatrix);
+		//this.p = p;
 			
 	}
 
@@ -107,6 +108,8 @@ public class Initialization {
 	
 	/**
 	 * initialize pheromoneMatrix
+	 * @param Problem
+	 * @return pheromone matrix
 	 */
 	private double[][] initPheromoneMatrix(Problem p) {
 		
@@ -126,6 +129,7 @@ public class Initialization {
 	/**
 	 * Method for shuffling the base array
 	 * @param array
+	 * @return shuffeled array
 	 */
 	private static int[] shuffleArray(int[] array) {
 	    int index, temp;
