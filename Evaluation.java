@@ -4,25 +4,30 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * This class contains the main-experiment where we include the name of the file 
+ * This class contains the main-experiment where we include the name of the file.
  * that contains the problem. 
  * @author Emilia, Rosa, Tula
  *
  */
 public class Evaluation {
-
+	
+	/**
+	 * Main method containing initialization of tuning parameters, reading in the problem and evaluating the results 
+	 * @param args
+	 * void
+	 */
 	public static void main(String[] args) {
 		
 		// initialized with some default values
-		int ants = 20;
+		int ants =4;
 		double pheromoneValue = 1.0;
-		double evaporationParameter = 0.9;
-		double intensificationParameter = 0.2;
+		double evaporationParameter = 0.7;
+		double intensificationParameter = 0.05;
 		double pheromoneWeight = 1;
 		double heuristicWeight = 1;
 		double greedyParameter = 0.5;
-		String filename = "02euclidean.tsp";
-		//String filename = "test.txt";
+		//String filename = "02euclidean.tsp";
+		String filename = "test_1";
 
 		
 		Problem p = new Problem(filename);
@@ -35,7 +40,7 @@ public class Evaluation {
 		Initialization init = new Initialization(p, ants, pheromoneValue);
 		
 		// construct an solution generator, intensifier and evaporator (save the parameter as attributes)
-		Intensification intense = new Intensification(intensificationParameter, p);
+		Intensification intense = new Intensification(intensificationParameter, p, ants);
 		Evaporation evap = new Evaporation(evaporationParameter);
 		SolutionGeneration solultionGener = new SolutionGeneration(p.getTownsDistances(), ants, pheromoneWeight, heuristicWeight, greedyParameter);
 		
@@ -47,7 +52,7 @@ public class Evaluation {
 		long time_spent = 0;
 		long startTime;
 		// execute the algorithms 100 times and compare to the documentation 
-		int trials = 2;
+		int trials = 1;
 
 		for (int i = 0; i < trials; i++) {
 			
@@ -86,12 +91,9 @@ public class Evaluation {
 	                fileWriter.append(results[i][j]);
 	                if (j != 5) {
 		                fileWriter.append(",");
-
 					}
-
 				}
                 fileWriter.append("\n");
-
 			}
               
             System.out.println("CSV file was created successfully !!!");
@@ -114,6 +116,8 @@ public class Evaluation {
 	
 	/**
 	 * Print matrix
+	 * @param matrix
+	 * void
 	 */
 	public static void printMatrix(int[][] matrix) {
 		
@@ -151,7 +155,6 @@ public class Evaluation {
 	public static void printArray(int[] array) {
 		for (int j = 0; j < array.length; j++) {
 			System.out.printf("|%3d",array[j]);
-			
 		}
 	}
 	
@@ -162,7 +165,6 @@ public class Evaluation {
 	public static void printArray(double[] array) {
 		for (int j = 0; j < array.length; j++) {
 			System.out.printf("|%3s",array[j]);
-			
 		}
 	}
 	
