@@ -41,4 +41,4 @@ After evaporation, the entries of the matrix that belong to the best (n) solutio
 public class Evaluation
 
 
-This class creates a Problem object that is to be solved. It applies the algorithm and creates a csv file which allows us to check the performance of our algorithm.
+This class creates a Problem object that is to be solved. It applies the algorithm employing the AntColonyOptimization class and creates a csv file which allows us to check the performance of our algorithm.
