@@ -7,8 +7,7 @@ import java.util.regex.Pattern;
 
 /**
  * The class Problem defines the problem that we have to solve.
- *  
- * @author 
+ * @author Rosa, Tula, Emilia
  */
 public class Problem {
 	
@@ -45,7 +44,7 @@ public class Problem {
 	
 	/**
 	 * Getter for townsDistances
-	 * 
+	 * @return distances between towns
 	 */
 	public int[][] getTownsDistances() {
 		return this.townsDistances;	
@@ -53,7 +52,7 @@ public class Problem {
 	
 	/**
 	 * Getter for numberTowns
-	 * 
+	 * @return number of towns
 	 */
 	public int getNumberTowns() {
 		return this.numberTowns;	
@@ -85,9 +84,6 @@ public class Problem {
 		} catch (Exception e) {
 			System.out.println("Problem with br");
 		}
-		
-	
-		
 		return townsDistances;
 	}
 	
@@ -111,8 +107,7 @@ public class Problem {
 		}
 		return line;
 	}
-	
-	
-
 }
+
+
 
