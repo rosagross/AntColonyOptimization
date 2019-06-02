@@ -1,34 +1,38 @@
 package tsp;
 
-//in Evaporation, we reduce every entry of the pheromone matrix by 
-//multiplying with a fixed number between 0 and 1
+/**
+ * Class to evaporate whole pheromone matrix since the pheromone scent vanishes as time passes
+ * @author Tula
+ *
+ */
 public class Evaporation {
 
-	//evaporation rate
+	/**
+	 * evaporation rate, [0, 1]
+	 */
 	private double evaporationParameter;
-	//pheromone matrix that is evaporated
-	//private double[][] evaporated;
 	
-	/*
-	 * In the constructor, we call the evaporation method and set the evaporation parameter
-	 * @param old_pheromones
+	/**
+	 * An object of the class Evaporation has the attribute evaporationParameter
 	 * @param evaporationParameter
 	 */
 	public Evaporation(double evaporationParameter) {
 		this.evaporationParameter = evaporationParameter;
 	}
 	
-//	/*
+//	/**
 //	 * Getter for evaporated pheromone Matrix
+//	 * @return evaporated matrix
 //	 */
 //	public double[][] getEvaporated() {
 //		return this.evaporated;
 //	}
+//	
 	
-	
-	/*this is how to evaporate a pheromone matrix :)
+	/**evaporation of pheromone matrix
 	* @param pheromone_matrix
 	* @param evaporationParameter
+	* @return pheromone_matrix
 	*/
 	public double[][] evaporate(double[][] pheromone_matrix) {
 		for(int i = 0; i < pheromone_matrix.length; i++) {
