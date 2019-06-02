@@ -38,7 +38,7 @@ public class AntColonyOptimization {
 	}
 		
 	/**
-	 * The algortihm that returns the best solution under the given conditions.
+	 * The algorithm that returns the best solution under the given conditions.
 	 * @return the array that contains the best/shortest way
 	 */
 	public int[] bestSolution(){ 
@@ -47,7 +47,7 @@ public class AntColonyOptimization {
 		double[][] newPheromones = init.getPheromoneMatrix();
 		int[][] solutions = init.getinitRoutes();
 		
-		//Evaluation.printMatrix(solutions);
+//		Evaluation.printMatrix(solutions);
 		
 		
 		
@@ -64,16 +64,13 @@ public class AntColonyOptimization {
 //			System.out.println();
 
 			solutions = solutionGeneration.solutionsMatrix(newPheromones);
-//			
+	
 //			System.out.println();
 //			Evaluation.printMatrix(solutions);
 //			System.out.println();
-
-
-
-
 			
 			this.iterations ++;
+			
 		} while (terminate());
 		
 		this.iterations = 0;
@@ -87,20 +84,14 @@ public class AntColonyOptimization {
 		return bestSolution;
 	}
 
-	//TODO: function that calculate the distance of the solution. Probably already implemented in the
-	// solution generation function???
-	private double calcValue() {
-		return 0;
-	}
-
 	/**
 	 * If the termination condition is reached, terminate with searching better solutions.
-	 * The termination condition could be a time limit or a number of iterations...        TODO
+	 * The termination condition is a number of iterations.
 	 * @return boolean that indicates if the termination condition is reached
 	 */
 	private boolean terminate() {
 		
-		if (iterations == 200) {
+		if (iterations == 100) {
 			return false;
 		}
 		return true;
@@ -109,7 +100,7 @@ public class AntColonyOptimization {
 	
 	/**
 	 * Getter for the nr of iterations needed
-	 * @return
+	 * @return number of iterations
 	 */
 	public double getIterations() {
 		return this.iterations;
@@ -117,12 +108,10 @@ public class AntColonyOptimization {
 
 	/**
 	 * Getter for the value of the resulting order of city-visits
-	 * @return
+	 * @return resulting city permutation 
 	 */
 	public double getResultVal() {
 		return this.resultValue;
-	}
-		
-		
+	}	
 
 }
